@@ -8,14 +8,14 @@ const imagesEl = document.querySelector('.gallery');
 function createGalleryMarkup(items) {
     return items
         .map(
-            item => `
-            <div class="gallery__item"
-            <a class="gallery__link" href="${item.original}"
+            ({ preview, original, description }) => `
+            <li class="gallery__item">
+            <a class="gallery__link" href="${original}"
             <img
             class="gallery__image"
-            src="${item.preview}"
-            data-source="${item.original}"
-            alt="${item.description}"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
             />
             </a>
             </div>
@@ -26,3 +26,29 @@ function createGalleryMarkup(items) {
 
 const addGalleryMarkyp = createGalleryMarkup(galleryItems);
 imagesEl.innerHTML = addGalleryMarkyp;
+imagesEl.addEventListener('click', onGalleryItemClick);
+function onGalleryItemClick(evt) {
+    blockStandartAction(evt);
+
+    const isGalleryItemEl = evt.target.classList.contains('gallery__item');
+    if (!isGalleryItemEl) {
+        return;
+    }
+
+    console.log(evt.target.dataset.source);
+
+    const instance = basicLightbox.create(`
+    <img src="${evt.target.dataset.source}" width="800" height="600">
+`);
+    instance.show();
+
+    document.addEventListener('keydown', evt => {
+        if (evt.key === 'Escape') {
+            instance.close();
+        }
+    });
+}
+
+function blockStandartAction(evt) {
+    evt.preventDefault();
+}
