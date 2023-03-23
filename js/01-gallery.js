@@ -18,28 +18,31 @@ function createGalleryMarkup(items) {
             alt="${description}"
             />
             </a>
-            </div>
+            </li>
         `,
         )
         .join('');
 }
 
 const addGalleryMarkyp = createGalleryMarkup(galleryItems);
+
 imagesEl.innerHTML = addGalleryMarkyp;
+
 imagesEl.addEventListener('click', onGalleryItemClick);
+
 function onGalleryItemClick(evt) {
     blockStandartAction(evt);
 
-    const isGalleryItemEl = evt.target.classList.contains('gallery__item');
+    const isGalleryItemEl = evt.target.classList.contains('gallery__link');
     if (!isGalleryItemEl) {
         return;
     }
 
-    console.log(evt.target.dataset.source);
+    console.log(evt.target);
 
     const instance = basicLightbox.create(`
-    <img src="${evt.target.dataset.source}" width="800" height="600">
-`);
+        <img src="${evt.target.dataset.source}" width="800" height="600">
+    `);
     instance.show();
 
     document.addEventListener('keydown', evt => {
