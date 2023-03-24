@@ -3,14 +3,14 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-const imagesEl = document.querySelector('.gallery');
+const imagesEl = document.querySelector('ul.gallery');
 
 function createGalleryMarkup(items) {
     return items
         .map(
             ({ preview, original, description }) => `
             <li class="gallery__item">
-            <a class="gallery__link" href="${original}"
+            <a class="gallery__link" href="${original}">
             <img
             class="gallery__image"
             src="${preview}"
@@ -33,7 +33,7 @@ imagesEl.addEventListener('click', onGalleryItemClick);
 function onGalleryItemClick(evt) {
     blockStandartAction(evt);
 
-    const isGalleryItemEl = evt.target.classList.contains('gallery__link');
+    const isGalleryItemEl = evt.target.classList.contains('gallery__image');
     if (!isGalleryItemEl) {
         return;
     }
