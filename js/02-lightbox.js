@@ -24,6 +24,10 @@ const addGalleryMarkyp = createGalleryMarkup(galleryItems);
 imagesEl.innerHTML = addGalleryMarkyp;
 
 imagesEl.addEventListener('click', onGalleryItemClick);
+let gallery = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+});
 
 function onGalleryItemClick(evt) {
     blockStandartAction(evt);
@@ -35,15 +39,7 @@ function onGalleryItemClick(evt) {
 
     console.log(evt.target);
 
-    let gallery = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionDelay: 250,
-    });
-
-    gallery.on('show.simplelightbox', function () {});
-    gallery.open();
-    // gallery.on('close.simplelightbox', function () {});
-    // gallery.close();
+    gallery.open(isGalleryItemEl);
 }
 
 function blockStandartAction(evt) {
